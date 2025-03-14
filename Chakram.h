@@ -6,8 +6,8 @@ enum CHAKRAM_STATE {
 	NONE,
 	PREAIM,
 	AIM,
-	LAUNCH,
 	STUCK,
+	LAUNCH,
 	SPINNING,
 	RETURN,
 };
@@ -17,10 +17,7 @@ public:
 	Chakram();
 	~Chakram() = default;
 
-	// void Aim(Vector2 const& playerPos);
-
 	void AimControl(char* keys);
-	// void Launch(char* keys, char* preKeys);
 
 	void TargetMapCollision(int(*map)[kMapWidth]);
 
@@ -35,12 +32,16 @@ public:
 
 	void DrawChakram();
 
+	void SpeedUpSpinTimer(int extraTime);
+
 	void SetState(CHAKRAM_STATE state);
+	CHAKRAM_STATE GetState() { return state_; }
 
-	int GetState() { return state_; }
-
+	Vector2 GetPos() { return pos_; }
 	float GetPosX() { return pos_.x; }
 	float GetPosY() { return pos_.y; }
+
+	float GetTargetPosX() { return targetPos_.x; }
 
 	float GetWidthHalf() { return widthHalf_; }
 	float GetHeightHalf() { return heightHalf_; }
@@ -86,8 +87,6 @@ private:
 	Vector2 targetOldPos_;
 	Vector2 targetScreenPos_;
 	float targetRadius_;
-
-	Vector2 maxAimDistance_;
 
 	Vector2 aimSpeed_;
 

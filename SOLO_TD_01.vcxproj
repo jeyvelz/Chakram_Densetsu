@@ -108,6 +108,8 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BGM.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\StringUtility.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp" />
@@ -116,14 +118,32 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
     <ClCompile Include="Chakram.cpp" />
+    <ClCompile Include="Eagle.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="Fireball.cpp" />
+    <ClCompile Include="FireSpirit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerAttack.cpp" />
+    <ClCompile Include="Rock.cpp" />
+    <ClCompile Include="Slime.cpp" />
+    <ClCompile Include="Spike.cpp" />
+    <ClCompile Include="StageClear.cpp" />
+    <ClCompile Include="StageSelect.cpp" />
+    <ClCompile Include="Title.cpp" />
     <ClCompile Include="ToScreen.cpp" />
     <ClCompile Include="ToTile.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Worm.cpp" />
+    <ClCompile Include="WormBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BGM.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\base\StringUtility.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\Matrix4x4.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\math\Vector2.h" />
@@ -153,13 +173,29 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
     <ClInclude Include="Chakram.h" />
     <ClInclude Include="define.h" />
+    <ClInclude Include="Eagle.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="Fireball.h" />
+    <ClInclude Include="FireSpirit.h" />
     <ClInclude Include="MapCreator.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerAttack.h" />
+    <ClInclude Include="Rock.h" />
+    <ClInclude Include="Slime.h" />
+    <ClInclude Include="Spike.h" />
+    <ClInclude Include="StageClear.h" />
+    <ClInclude Include="StageSelect.h" />
+    <ClInclude Include="Title.h" />
     <ClInclude Include="ToScreen.h" />
     <ClInclude Include="ToTile.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="vertex.h" />
+    <ClInclude Include="Worm.h" />
+    <ClInclude Include="WormBullet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

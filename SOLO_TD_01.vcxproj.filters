@@ -14,6 +14,18 @@
     <Filter Include="KamataEngine\Adapter">
       <UniqueIdentifier>{c6468eb4-788b-4a83-b207-a5f4804e56c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KamataEngine\Enemy">
+      <UniqueIdentifier>{c16c5391-3c3f-4c01-a075-c838e0470a8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KamataEngine\Player">
+      <UniqueIdentifier>{6576e543-a5d0-41ed-ba4e-a2cfa9a7cec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KamataEngine\Scene">
+      <UniqueIdentifier>{c108f1eb-1f1c-4b0a-a29e-03d0e3091bff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KamataEngine\Boss">
+      <UniqueIdentifier>{ca810ddc-a615-43da-84b1-81aba8271cd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -38,9 +50,6 @@
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\StringUtility.cpp">
       <Filter>KamataEngine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>KamataEngine</Filter>
-    </ClCompile>
     <ClCompile Include="ToScreen.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
@@ -53,7 +62,64 @@
     <ClCompile Include="Object.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>KamataEngine\Player</Filter>
+    </ClCompile>
     <ClCompile Include="Chakram.cpp">
+      <Filter>KamataEngine\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Eagle.cpp">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Worm.cpp">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="WormBullet.cpp">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttack.cpp">
+      <Filter>KamataEngine\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="FireSpirit.cpp">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="StageSelect.cpp">
+      <Filter>KamataEngine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="StageClear.cpp">
+      <Filter>KamataEngine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>KamataEngine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Spike.cpp">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>KamataEngine\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>KamataEngine\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>KamataEngine\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Fireball.cpp">
+      <Filter>KamataEngine\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BGM.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -130,13 +196,67 @@
       <Filter>KamataEngine\Include</Filter>
     </ClInclude>
     <ClInclude Include="define.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="vertex.h" />
     <ClInclude Include="ToScreen.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MapCreator.h" />
     <ClInclude Include="ToTile.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="Chakram.h" />
+    <ClInclude Include="Enemy.h">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>KamataEngine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Chakram.h">
+      <Filter>KamataEngine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Eagle.h">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Worm.h">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="WormBullet.h">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttack.h">
+      <Filter>KamataEngine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h" />
+    <ClInclude Include="FireSpirit.h">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="StageClear.h">
+      <Filter>KamataEngine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StageSelect.h">
+      <Filter>KamataEngine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>KamataEngine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Spike.h">
+      <Filter>KamataEngine\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>KamataEngine\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>KamataEngine\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>KamataEngine\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>KamataEngine\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BGM.h" />
   </ItemGroup>
 </Project>

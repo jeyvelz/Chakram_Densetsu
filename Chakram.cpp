@@ -17,17 +17,12 @@ Chakram::Chakram() {
 	maxPos_ = { 0.0f, 0.0f };
 	launchPos_ = { 0.0f, 0.0f };
 
+	direction_ = RIGHT;
+
 	screenPos_.x = pos_.x;
 	screenPos_.y = ConvertToScreen(pos_.y);
 
-	scrollPos_.x = 0.0f;
-	scrollPos_.y = 0.0f;
-
 	returnStartPos_ = { 0.0f, 0.0f };
-
-	aimSpeed_ = { 5.2f, 5.2f };
-
-	maxAimDistance_ = { 0.0f, 0.0f };
 
 	// timer
 	launchTimer_ = 0.0f;
@@ -38,6 +33,8 @@ Chakram::Chakram() {
 
 	spinTimer_ = 0;
 	maxSpinTimer_ = 300;
+
+	color_ = WHITE;
 
 	// rotate
 	isLaunched_ = false;
@@ -85,8 +82,9 @@ Chakram::Chakram() {
 	/// target 
 	targetPos_.x = 200.0f;
 	targetPos_.y = 200.0f;
+	aimSpeed_ = { 6.6f, 6.6f };
 
-	color_ = RED;
+	
 
 	targetOldPos_ = { 0.0f, 0.0f };
 	targetScreenPos_ = { 0.0f, 0.0f };
@@ -134,6 +132,7 @@ void Chakram::SetState(CHAKRAM_STATE state) {
 	state_ = state;
 }
 
+
 void Chakram::AimControl(char* keys) {
 	// Moving Aim
 	target_isPressLeft_ = false;
@@ -168,7 +167,6 @@ void Chakram::TargetMapCollision(int(*map)[kMapWidth]) {
 	target_canMoveUp_ = false;
 	target_canMoveDown_ = false;
 
-	color_ = RED;
 	// LeftCollision
 	if (map[BlockY(targetLeftTopOld_.y)][BlockX(targetLeftTop_.x)] == 0 &&
 		map[BlockY(targetLeftBottomOld_.y)][BlockX(targetLeftBottom_.x)] == 0) {
@@ -281,11 +279,21 @@ void Chakram::TargetVertexUpdate() {
 	targetRightBottomOld_.y = targetOldPos_.y - targetHeightHalf_ + 1.0f;
 }
 
+void Chakram::SpeedUpSpinTimer(int extraTimer){
+	spinTimer_ += extraTimer;
+}
+
 void Chakram::Update(char* keys, char* preKeys, Vector2 const& playerPos, Vector2 const& scroll, 
 	DIRECTION const& playerDirection, int(*map)[kMapWidth]) {
 	if (keys == nullptr || map == nullptr) {
 		return;
 	}
+	if (state_ == NONE) {
+		launchTimer_ = 0.0f;
+		spinTimer_ = 0;
+		isLaunched_ = false;
+	}
+
 	if (state_ == PREAIM) {
 		targetPos_ = playerPos;
 	}
@@ -294,20 +302,23 @@ void Chakram::Update(char* keys, char* preKeys, Vector2 const& playerPos, Vector
 	if (state_ == AIM) {
 		targetOldPos_ = targetPos_;
 		AimControl(keys);
-	
 		TargetVertexUpdate();
 		TargetMapCollision(map);
 
 		maxPos_ = targetPos_;
 
 		launchPos_ = playerPos;
-		launchTimer_ = 0.0f;
-		spinTimer_ = 0;
+		if (playerDirection == RIGHT) {
+			direction_ = RIGHT;
+		} else {
+			direction_ = LEFT;
+		}
 	}
 
 	if (state_ == LAUNCH) {
 		isLaunched_ = true;
 		launchTimer_ += 1.0f;
+		color_ = WHITE;
 
 		prePos_ = pos_;
 
@@ -318,9 +329,8 @@ void Chakram::Update(char* keys, char* preKeys, Vector2 const& playerPos, Vector
 
 		pos_.x = launchPos_.x + (launchTimer_ / maxLaunchTimer_ * (maxPos_.x - launchPos_.x));
 		pos_.y = launchPos_.y + (launchTimer_ / maxLaunchTimer_ * (maxPos_.y - launchPos_.y));
-		if (playerDirection == LEFT) {
+		
 
-		}
 	}
 
 
@@ -341,12 +351,23 @@ void Chakram::Update(char* keys, char* preKeys, Vector2 const& playerPos, Vector
 			
 		}
 
-		if (keys[DIK_V] && !preKeys[DIK_V]) {
+		if (keys[DIK_C] && !preKeys[DIK_C]) {
 			state_ = RETURN;
 		}
+
+		if (spinTimer_ >= maxSpinTimer_ - 120) {
+			if (spinTimer_ % 30 < 5 ) {
+				color_ = 0xF88379FF;
+			} else {
+				color_ = WHITE;
+			}
+		} 
 	} 
 
+	
+
 	if (state_ == RETURN) {
+		color_ = WHITE;
 		returnTimer_++;
 		if (returnTimer_ >= maxReturnTimer_) {
 	
@@ -358,7 +379,6 @@ void Chakram::Update(char* keys, char* preKeys, Vector2 const& playerPos, Vector
 
 		if (pos_.x == playerPos.x && pos_.y == playerPos.y) {
 			state_ = NONE;
-			isLaunched_ = false;
 		}
 	}
 	
@@ -398,27 +418,22 @@ void Chakram::DrawChakram() {
 	}
 
 	if (isLaunched_ == true) {
-		Novice::DrawQuad(static_cast<int>(screenPos_.x - drawWidthHalf_) + 0, static_cast<int>(ConvertToScreen(screenPos_.y) - drawHeightHalf_) + 0,
+		DrawObject(screenPos_, drawWidthHalf_, drawHeightHalf_, animePosX_, animePosY_, graph_, direction_, 0, 0, color_);
+
+		/*Novice::DrawQuad(static_cast<int>(screenPos_.x - drawWidthHalf_) + 0, static_cast<int>(ConvertToScreen(screenPos_.y) - drawHeightHalf_) + 0,
 			static_cast<int>(screenPos_.x + drawWidthHalf_) + 0, static_cast<int>(ConvertToScreen(screenPos_.y) - drawHeightHalf_) + 0,
 			static_cast<int>(screenPos_.x - drawWidthHalf_) + 0, static_cast<int>(ConvertToScreen(screenPos_.y) + drawHeightHalf_) + 0,
 			static_cast<int>(screenPos_.x + drawWidthHalf_) + 0, static_cast<int>(ConvertToScreen(screenPos_.y) + drawHeightHalf_) + 0,
-			animePosX_, animePosY_, static_cast<int>(drawWidthHalf_ * 2.f), static_cast<int>(drawHeightHalf_ * 2.f), graph_, WHITE);
+			animePosX_, animePosY_, static_cast<int>(drawWidthHalf_ * 2.f), static_cast<int>(drawHeightHalf_ * 2.f), graph_, WHITE);*/
 
-		Novice::DrawBox(static_cast<int>(screenPos_.x - widthHalf_), static_cast<int>(ConvertToScreen(screenPos_.y) + heightHalf_),
-			static_cast<int>(widthHalf_ * 2.f), static_cast<int>(-(heightHalf_ * 2.f)), 0.f, RED, kFillModeWireFrame);
+		/*Novice::DrawBox(static_cast<int>(screenPos_.x - widthHalf_), static_cast<int>(ConvertToScreen(screenPos_.y) + heightHalf_),
+			static_cast<int>(widthHalf_ * 2.f), static_cast<int>(-(heightHalf_ * 2.f)), 0.f, RED, kFillModeWireFrame);*/
 	}
 
-	Novice::ScreenPrintf(0, 500, "ChakramPos X %0.2f Y %0.2f", screenPos_.x, ConvertToScreen(screenPos_.y));
-	Novice::ScreenPrintf(0, 520, "TargetPos X %0.2f Y %0.2f", targetScreenPos_.x, ConvertToScreen(targetScreenPos_.y));
-	Novice::ScreenPrintf(0, 560, "state_ %d", state_);
-	Novice::ScreenPrintf(0, 580, "launchTimer_ %0.2f", launchTimer_);
-	Novice::ScreenPrintf(240, 500, "LaunchPos X %0.2f Y %0.2f", launchPos_.x, launchPos_.y);
-	Novice::ScreenPrintf(280, 560, "can L %d R %d", target_canMoveLeft_, target_canMoveRight_);
-	Novice::ScreenPrintf(280, 580, "can U %d D %d", target_canMoveUp_, target_canMoveDown_);
+	/*Novice::ScreenPrintf(0, 500, "ChakramPos X %0.2f Y %0.2f", screenPos_.x, ConvertToScreen(screenPos_.y));
+	Novice::ScreenPrintf(0, 520, "TargetPos X %0.2f Y %0.2f", targetScreenPos_.x, ConvertToScreen(targetScreenPos_.y));*/
+	//Novice::ScreenPrintf(0, 560, "state_ %d", state_);
+	//Novice::ScreenPrintf(0, 580, "spinTimer %d max %d", spinTimer_, maxSpinTimer_);
+	//Novice::ScreenPrintf(240, 500, "LaunchPos X %0.2f Y %0.2f", launchPos_.x, launchPos_.y);
 
-	
-	Novice::ScreenPrintf(560, 120, "LT %0.2f %0.2f", leftTop_.x, leftTop_.y);
-	Novice::ScreenPrintf(740, 120, "RT_ %0.2f %0.2f", rightTop_.x, rightTop_.y);
-	Novice::ScreenPrintf(560, 140, "LB_ %0.2f %0.2f", leftBottom_.x, leftBottom_.y);
-	Novice::ScreenPrintf(740, 140, "RB_ %0.2f %0.2f", rightBottom_.x, rightBottom_.y);
 }

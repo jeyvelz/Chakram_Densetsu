@@ -1,6 +1,6 @@
 #pragma once
 #include "Vertex.h"
-
+#include <Novice.h>
 
 enum DIRECTION {
 	LEFT,
@@ -10,10 +10,10 @@ enum DIRECTION {
 class Object{
 protected:
 	// Position
+	Vector2 spawnPos_;
 	Vector2 pos_;
 	Vector2 prePos_;
 	Vector2 screenPos_;
-	Vector2 scrollPos_;
 	// Vertex
 	Vector2 leftTop_;
 	Vector2 rightTop_;
@@ -27,6 +27,9 @@ protected:
 	
 	// Speed
 	Vector2 speed_;
+
+	int hp_;
+
 	// Size
 	float widthHalf_;
 	float heightHalf_;
@@ -34,15 +37,24 @@ protected:
 	float drawWidthHalf_;
 	float drawHeightHalf_;
 
-	DIRECTION direction_;
-
 	// Animation
 	int animePosX_;
 	int animePosY_;
 	int animeFrame_;
 
+	// shake
+	int shakeX_;
+	int shakeY_;
+
 	// Graph
 	int graph_;
 
+public:
+
+	DIRECTION direction_;
+
 };
 
+// DrawFunction
+void DrawObject(Vector2 screenPos, float drawWidthHalf, float drawHeightHalf,
+	int animePosX, int animePosY, int graph_, DIRECTION direction, int shakeX, int shakeY, unsigned int const color = WHITE);
